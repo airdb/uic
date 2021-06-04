@@ -14,8 +14,8 @@ type IExchange interface {
 }
 
 type IUser interface {
-	Get() repository.Order
-	Update(repository.Order)
+	Get() repository.User
+	Update(repository.User)
 }
 
 func (b Bitbank) GetUser() valueobject.User {

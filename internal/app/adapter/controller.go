@@ -63,6 +63,8 @@ func NewRouter() {
 	APIGroup.GET("/", DefaultRoot)
 
 	APIGroup.GET("/login", index)
+	APIGroup.GET("/login/github", loginGithub)
+
 	APIGroup.GET("/user/query", getUser)
 	APIGroup.GET("/user/signup", signup)
 	APIGroup.POST("/user/signin", signin)
@@ -83,6 +85,15 @@ func NewRouter() {
 	faas.Start(Handler)
 }
 
+// @Security ApiKeyAuth
+// @Description get struct array by ID
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"ok"
+// @Failure 400 {object} string "We need ID!!"
+// @Failure 404 {object} string "Can not find ID"
+// @Router /login/token [get]
 func index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
 		"token": "68b329da9893e34099c7d8ad5cb9c940",
@@ -147,6 +158,20 @@ func signin(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /user/signout [post]
 func signout(c *gin.Context) {
+	user := service.GetUser(user) // Dependency Injection
+	c.JSON(http.StatusOK, user)
+}
+
+// @Security ApiKeyAuth
+// @Description get struct array by ID
+// @Tags login
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"ok"
+// @Failure 400 {object} string "We need ID!!"
+// @Failure 404 {object} string "Can not find ID"
+// @Router /login/github [get]
+func loginGithub(c *gin.Context) {
 	user := service.GetUser(user) // Dependency Injection
 	c.JSON(http.StatusOK, user)
 }

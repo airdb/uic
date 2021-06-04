@@ -1,0 +1,21 @@
+CREATE TABLE `wechat_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `unionid` varchar(255) DEFAULT NULL,
+  `nickname` varchar(255) DEFAULT NULL,
+  `gender` int(10) unsigned DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `avatar_url` varchar(255) DEFAULT NULL,
+  `sex` int(10) unsigned DEFAULT NULL,
+  `privilege` varchar(255) DEFAULT NULL,
+  `headimgurl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_users_deleted_at` (`deleted_at`),
+  KEY `idx_users_open_id` (`openid`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf
