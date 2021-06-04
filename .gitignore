@@ -1,0 +1,6 @@
+cli
+docs
+main
+.idea/
+.env
+.DS_Store
