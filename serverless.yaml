@@ -24,6 +24,7 @@ inputs:
 
   environment: #  环境变量
     variables: #  环境变量对象
+      env: ${stage}
       ENV: ${stage}
       MAIN_DSN_WRITE: "mina:Mina@123@tcp(10.0.1.200:3306)/dev_airdb"
 

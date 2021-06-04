@@ -33,6 +33,8 @@ func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatew
 
 var GinFaas *ginAdapter.GinFaas
 
+const project = "uic"
+
 // @title UIC Swagger API
 // @version 1.0
 // @description User Information Center
@@ -53,14 +55,14 @@ func NewRouter() {
 
 	r := gin.Default()
 
-	projectPath := "/uic"
+	projectPath := "/" + project
 	r.LoadHTMLGlob("internal/app/adapter/view/*")
 
 	r.GET(projectPath, DefaultRoot)
 
 	APIGroup := r.Group(projectPath)
 	APIGroup.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("./doc.json")))
-	APIGroup.GET("/", DefaultRoot)
+	APIGroup.GET("/", redirect)
 
 	APIGroup.GET("/login", index)
 	APIGroup.GET("/login/github", loginGithub)
@@ -104,6 +106,13 @@ func DefaultRoot(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"deploy_info": version.GetBuildInfo(),
 	})
+}
+
+func redirect(c *gin.Context) {
+	fmt.Println(os.Environ())
+	fmt.Println("xx", c.Request.RequestURI)
+	redirectURL := "/" + os.Getenv("ENV") + c.Request.RequestURI + "/swagger/index.html"
+	c.Redirect(http.StatusTemporaryRedirect, redirectURL)
 }
 
 // @Security ApiKeyAuth
