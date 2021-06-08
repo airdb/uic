@@ -38,7 +38,7 @@ const project = "uic"
 // @title UIC Swagger API
 // @version 1.0
 // @description User Information Center
-// @termsOfService https://airdb.io/terms/
+// @termsOfService https://airdb.github.io/terms.html
 
 // @contact.name Discussion
 // @contact.url https://github.com/airdb/airdb.github.io/discussions
@@ -66,6 +66,7 @@ func NewRouter() {
 
 	APIGroup.GET("/login", index)
 	APIGroup.GET("/login/github", loginGithub)
+	APIGroup.GET("/login/gitee", loginGitee)
 
 	APIGroup.GET("/user/query", getUser)
 	APIGroup.GET("/user/signup", signup)
@@ -183,4 +184,21 @@ func signout(c *gin.Context) {
 func loginGithub(c *gin.Context) {
 	user := service.GetUser(user) // Dependency Injection
 	c.JSON(http.StatusOK, user)
+}
+
+// @Security ApiKeyAuth
+// @Description Reference: https://gitee.com/api/v5/oauth_doc#/
+// @Tags login
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"ok"
+// @Failure 400 {object} string "We need ID!!"
+// @Failure 404 {object} string "Can not find ID"
+// @Router /login/gitee [get]
+func loginGitee(c *gin.Context) {
+	user := service.GetUser(user) // Dependency Injection
+	// c.JSON(http.StatusOK, user)
+
+	redirectURL := "https://noah.airdb.io/index.html?token=" + user.Token
+	c.Redirect(http.StatusTemporaryRedirect, redirectURL)
 }

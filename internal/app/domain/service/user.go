@@ -29,6 +29,7 @@ func (b Bitbank) GetUser() valueobject.User {
 
 	a.ID = c.ID
 	a.Username = c.Username
+	a.Token = "68b329da9893e34099c7d8ad5cb9c940"
 
 	fmt.Println(c)
 

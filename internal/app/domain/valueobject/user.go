@@ -3,6 +3,7 @@ package valueobject
 type User struct {
 	ID       uint64 `json:"id"`
 	Username string `json:"username"`
+	Token    string `json:"token,omitempty"`
 }
 
 // Ticker is basic data type of trade
