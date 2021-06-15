@@ -17,3 +17,14 @@ func (of User) Generate(
 		Username: username,
 	}
 }
+
+type OauthConfig struct{}
+
+func (of OauthConfig) GenerateOauthConfig(id uint, clientID, redirectURL, state string) domain.OauthConfig {
+	return domain.OauthConfig{
+		ID:          id,
+		ClientID:    clientID,
+		RedirectURL: redirectURL,
+		State:       state,
+	}
+}

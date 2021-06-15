@@ -6,6 +6,15 @@ type User struct {
 	Token    string `json:"token,omitempty"`
 }
 
+type OauthConfig struct {
+	ID          uint   `json:"id"`
+	Provider    string `json:"provider,omitempty"`
+	ClientID    string `json:"client_id,omitempty"`
+	CientSecret string `json:"cient_secret,omitempty"`
+	RedirectURL string `json:"redirect_url,omitempty"`
+	State       string `json:"state,omitempty"`
+}
+
 // Ticker is basic data type of trade
 type Ticker struct {
 	Sell      string

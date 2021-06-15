@@ -16,6 +16,8 @@ type IExchange interface {
 type IUser interface {
 	Get() repository.User
 	Update(repository.User)
+
+	GetOauthConfig() repository.OauthConfig
 }
 
 func (b Bitbank) GetUser() valueobject.User {
@@ -32,6 +34,21 @@ func (b Bitbank) GetUser() valueobject.User {
 	a.Token = "68b329da9893e34099c7d8ad5cb9c940"
 
 	fmt.Println(c)
+
+	return a
+}
+
+func GetOauthConfig() valueobject.OauthConfig {
+	a := valueobject.OauthConfig{}
+
+	u := repository.OauthConfig{}
+
+	c := u.GetOauthConfig()
+
+	a.ID = c.ID
+	a.ClientID = c.ClientID
+	a.RedirectURL = c.RedirectURL
+	a.State = ""
 
 	return a
 }

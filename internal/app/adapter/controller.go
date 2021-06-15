@@ -98,8 +98,21 @@ func NewRouter() {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /login/token [get]
 func index(c *gin.Context) {
+	config := service.GetOauthConfig()
+
+	loginURL := fmt.Sprintf("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s",
+		"https://github.com/login/oauth/authorize",
+		config.ClientID,
+		config.RedirectURL,
+		"user:email read:org",
+		config.State,
+	)
+
+	fmt.Print(config.ID)
+
 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
-		"token": "68b329da9893e34099c7d8ad5cb9c940",
+		"login_url": loginURL,
+		"token":     "68b329da9893e34099c7d8ad5cb9c940",
 	})
 }
 
@@ -173,7 +186,7 @@ func signout(c *gin.Context) {
 }
 
 // @Security ApiKeyAuth
-// @Description get struct array by ID
+// @Description Reference: https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
 // @Tags login
 // @Accept  json
 // @Produce  json
@@ -183,7 +196,10 @@ func signout(c *gin.Context) {
 // @Router /login/github [get]
 func loginGithub(c *gin.Context) {
 	user := service.GetUser(user) // Dependency Injection
-	c.JSON(http.StatusOK, user)
+
+	redirectURL := "https://noah.airdb.io/?#/callback?token=" + user.Token
+
+	c.Redirect(http.StatusTemporaryRedirect, redirectURL)
 }
 
 // @Security ApiKeyAuth
