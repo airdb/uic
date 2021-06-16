@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/airdb/sailor/gin/handlers"
-	"github.com/airdb/sailor/sliceutil"
 	"github.com/airdb/sailor/version"
 	"github.com/airdb/uic/internal/app/domain/service"
 
@@ -56,7 +55,7 @@ func NewRouter() {
 		handlers.Jsonifier(),
 	)
 
-	project := sliceutil.LastStringWithSplit(version.Repo, "/")
+	project := version.GetBuildInfo().ToProject()
 
 	projectPath := "/" + project
 	r.LoadHTMLGlob("internal/app/adapter/view/*")
