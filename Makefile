@@ -6,10 +6,10 @@ BUILD := $(shell git rev-parse HEAD)
 REPO := github.com/airdb/uic
 
 LDFLAGS=-ldflags
-LDFLAGS += "-X=$(REPO)/internal/version.Repo=$(REPO) \
-            -X=$(REPO)/internal/version.Version=$(VERSION) \
-            -X=$(REPO)/internal/version.Build=$(BUILD) \
-            -X=$(REPO)/internal/version.BuildTime=$(shell date +%s)"
+LDFLAGS += "-X=github.com/airdb/sailor/version.Repo=$(REPO) \
+            -X=github.com/airdb/sailor/version.Version=$(VERSION) \
+            -X=github.com/airdb/sailor/version.Build=$(BUILD) \
+            -X=github.com/airdb/sailor/version.BuildTime=$(shell date +%s)"
 
 SLSENV=SERVERLESS_PLATFORM_VENDOR=tencent GLOBAL_ACCELERATOR_NA=true
 default: build deploy

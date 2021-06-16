@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 
+	"github.com/airdb/sailor/version"
 	"github.com/airdb/uic/internal/app/adapter"
-	"github.com/airdb/uic/internal/version"
 )
 
 func main() {

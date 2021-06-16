@@ -6,16 +6,15 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/airdb/sailor/gin/handlers"
+	"github.com/airdb/sailor/version"
 	"github.com/airdb/uic/internal/app/domain/service"
-	"github.com/airdb/uic/internal/version"
 
 	"github.com/serverless-plus/tencent-serverless-go/events"
 	"github.com/serverless-plus/tencent-serverless-go/faas"
 
 	"github.com/gin-gonic/gin"
 	ginAdapter "github.com/serverless-plus/tencent-serverless-go/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "github.com/airdb/uic/docs"
 )
@@ -54,6 +53,9 @@ func NewRouter() {
 	fmt.Printf("Gin start")
 
 	r := gin.Default()
+	r.Use(
+		handlers.Jsonifier(),
+	)
 
 	projectPath := "/" + project
 	r.LoadHTMLGlob("internal/app/adapter/view/*")
@@ -61,16 +63,21 @@ func NewRouter() {
 	r.GET(projectPath, DefaultRoot)
 
 	APIGroup := r.Group(projectPath)
-	APIGroup.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("./doc.json")))
+	handlers.RegisterSwagger(APIGroup)
+
 	APIGroup.GET("/", redirect)
 
 	APIGroup.GET("/login", index)
 	APIGroup.GET("/login/github", loginGithub)
 	APIGroup.GET("/login/gitee", loginGitee)
 
-	APIGroup.GET("/user/query", getUser)
+	APIGroup.Any("/user/query", getUser)
 	APIGroup.GET("/user/signup", signup)
+
+	APIGroup.POST("/user/login", signin)
 	APIGroup.POST("/user/signin", signin)
+
+	APIGroup.POST("/user/logout", signout)
 	APIGroup.POST("/user/signout", signout)
 
 	if os.Getenv("env") == "dev" {
@@ -140,7 +147,13 @@ func redirect(c *gin.Context) {
 // @Router /user/query [get]
 func getUser(c *gin.Context) {
 	user := service.GetUser(user) // Dependency Injection
-	c.JSON(http.StatusOK, user)
+	// c.JSON(http.StatusOK, user)
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"success": true,
+	// 	"data":    user,
+	// })
+
+	handlers.SetResp(c, &user)
 }
 
 // @Security ApiKeyAuth
