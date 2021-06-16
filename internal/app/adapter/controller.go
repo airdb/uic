@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/airdb/sailor/gin/handlers"
+	"github.com/airdb/sailor/sliceutil"
 	"github.com/airdb/sailor/version"
 	"github.com/airdb/uic/internal/app/domain/service"
 
@@ -32,8 +33,6 @@ func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatew
 
 var GinFaas *ginAdapter.GinFaas
 
-const project = "uic"
-
 // @title UIC Swagger API
 // @version 1.0
 // @description User Information Center
@@ -56,6 +55,8 @@ func NewRouter() {
 	r.Use(
 		handlers.Jsonifier(),
 	)
+
+	project := sliceutil.LastStringWithSplit(version.Repo, "/")
 
 	projectPath := "/" + project
 	r.LoadHTMLGlob("internal/app/adapter/view/*")
@@ -124,9 +125,12 @@ func index(c *gin.Context) {
 }
 
 func DefaultRoot(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"deploy_info": version.GetBuildInfo(),
-	})
+	handlers.SetResp(c, version.GetBuildInfo())
+	/*
+		c.JSON(http.StatusOK, gin.H{
+			"deploy_info": version.GetBuildInfo(),
+		})
+	*/
 }
 
 func redirect(c *gin.Context) {

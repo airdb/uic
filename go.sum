@@ -14,6 +14,8 @@ github.com/airdb/sailor v0.0.0-20210616050625-803fcaa26ec3 h1:mFRzBbGcL0j3DLoPav
 github.com/airdb/sailor v0.0.0-20210616050625-803fcaa26ec3/go.mod h1:wq8riUCRh0QW/M35QhlsGBXejkM5NxGG1FvDj4NosCs=
 github.com/airdb/sailor v0.0.0-20210616054040-6431f6256d7a h1:kgeL196GE1+Cok/Ia5IFSqCXsRvzqa1MQmDylvEQj7Y=
 github.com/airdb/sailor v0.0.0-20210616054040-6431f6256d7a/go.mod h1:wq8riUCRh0QW/M35QhlsGBXejkM5NxGG1FvDj4NosCs=
+github.com/airdb/sailor v0.0.0-20210616062430-a452394b295b h1:xajdY/ju1q0pZ0Z8VNoOspUfW6mR6lqXQJUR1x7yoL0=
+github.com/airdb/sailor v0.0.0-20210616062430-a452394b295b/go.mod h1:wq8riUCRh0QW/M35QhlsGBXejkM5NxGG1FvDj4NosCs=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
