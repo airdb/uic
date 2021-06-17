@@ -3,7 +3,7 @@ module github.com/airdb/uic
 go 1.16
 
 require (
-	github.com/airdb/sailor v0.0.0-20210616064424-4399c342ab6c
+	github.com/airdb/sailor v0.0.0-20210616072259-4dfcc727f025
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/gin-gonic/gin v1.7.2
 	github.com/go-openapi/spec v0.20.3 // indirect

@@ -53,6 +53,20 @@ func GetOauthConfig() valueobject.OauthConfig {
 	return a
 }
 
+func GetOauthRedirectURL() string {
+	config := GetOauthConfig()
+
+	loginURL := fmt.Sprintf("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s",
+		"https://github.com/login/oauth/authorize",
+		config.ClientID,
+		config.RedirectURL,
+		"user:email read:org",
+		config.State,
+	)
+
+	return loginURL
+}
+
 // Bitbank is an bitcoin exchange
 type Bitbank struct{}
 

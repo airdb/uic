@@ -1,7 +1,6 @@
 package adapter
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,12 +8,9 @@ import (
 	"github.com/airdb/sailor/gin/handlers"
 	"github.com/airdb/sailor/version"
 	"github.com/airdb/uic/internal/app/domain/service"
-
-	"github.com/serverless-plus/tencent-serverless-go/events"
-	"github.com/serverless-plus/tencent-serverless-go/faas"
+	"github.com/airdb/uic/internal/app/domain/valueobject"
 
 	"github.com/gin-gonic/gin"
-	ginAdapter "github.com/serverless-plus/tencent-serverless-go/gin"
 
 	_ "github.com/airdb/uic/docs"
 )
@@ -24,13 +20,6 @@ var (
 	// parameterRepository = repository.Parameter{}
 	// orderRepository     = repository.Order{}
 )
-
-// Handler serverless faas handler.
-func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatewayResponse, error) {
-	return GinFaas.ProxyWithContext(ctx, req)
-}
-
-var GinFaas *ginAdapter.GinFaas
 
 // @title UIC Swagger API
 // @version 1.0
@@ -80,19 +69,7 @@ func NewRouter() {
 	APIGroup.POST("/user/logout", signout)
 	APIGroup.POST("/user/signout", signout)
 
-	if os.Getenv("env") == "dev" {
-		defaultAddr := ":8081"
-		err := r.Run(defaultAddr)
-		if err != nil {
-			panic(err)
-		}
-
-		return
-	}
-
-	GinFaas = ginAdapter.New(r)
-
-	faas.Start(Handler)
+	handlers.RunTencentServerless(r)
 }
 
 // @Security ApiKeyAuth
@@ -105,17 +82,7 @@ func NewRouter() {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /login/token [get]
 func index(c *gin.Context) {
-	config := service.GetOauthConfig()
-
-	loginURL := fmt.Sprintf("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s",
-		"https://github.com/login/oauth/authorize",
-		config.ClientID,
-		config.RedirectURL,
-		"user:email read:org",
-		config.State,
-	)
-
-	fmt.Print(config.ID)
+	loginURL := service.GetOauthRedirectURL()
 
 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
 		"login_url": loginURL,
@@ -149,12 +116,15 @@ func redirect(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /user/query [get]
 func getUser(c *gin.Context) {
+	auth := c.Request.Header.Get("Authorization")
+
 	user := service.GetUser(user) // Dependency Injection
-	// c.JSON(http.StatusOK, user)
-	// c.JSON(http.StatusOK, gin.H{
-	// 	"success": true,
-	// 	"data":    user,
-	// })
+
+	if auth == "" {
+		user = valueobject.User{
+			Redirect: service.GetOauthRedirectURL(),
+		}
+	}
 
 	handlers.SetResp(c, &user)
 }
