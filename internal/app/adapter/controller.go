@@ -15,12 +15,6 @@ import (
 	_ "github.com/airdb/uic/docs"
 )
 
-var (
-	user = service.Bitbank{}
-	// parameterRepository = repository.Parameter{}
-	// orderRepository     = repository.Order{}
-)
-
 // @title UIC Swagger API
 // @version 1.0
 // @description User Information Center
@@ -44,6 +38,7 @@ func NewRouter() {
 		handlers.Jsonifier(),
 	)
 
+	version.InitUptime()
 	project := version.GetBuildInfo().ToProject()
 
 	projectPath := "/" + project
@@ -118,7 +113,7 @@ func redirect(c *gin.Context) {
 func getUser(c *gin.Context) {
 	auth := c.Request.Header.Get("Authorization")
 
-	user := service.GetUser(user) // Dependency Injection
+	user := service.GetUser() // Dependency Injection
 
 	if auth == "" {
 		user = valueobject.User{
@@ -139,7 +134,7 @@ func getUser(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /user/signup [post]
 func signup(c *gin.Context) {
-	user := service.GetUser(user) // Dependency Injection
+	user := service.GetUser() // Dependency Injection
 	c.JSON(http.StatusOK, user)
 }
 
@@ -153,7 +148,7 @@ func signup(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /user/signin [post]
 func signin(c *gin.Context) {
-	user := service.GetUser(user) // Dependency Injection
+	user := service.GetUser() // Dependency Injection
 	c.JSON(http.StatusOK, user)
 }
 
@@ -167,7 +162,7 @@ func signin(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /user/signout [post]
 func signout(c *gin.Context) {
-	user := service.GetUser(user) // Dependency Injection
+	user := service.GetUser() // Dependency Injection
 	c.JSON(http.StatusOK, user)
 }
 
@@ -181,7 +176,7 @@ func signout(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /login/github [get]
 func loginGithub(c *gin.Context) {
-	user := service.GetUser(user) // Dependency Injection
+	user := service.GetUser() // Dependency Injection
 
 	redirectURL := "https://noah.airdb.io/?#/callback?token=" + user.Token
 
@@ -198,7 +193,7 @@ func loginGithub(c *gin.Context) {
 // @Failure 404 {object} string "Can not find ID"
 // @Router /login/gitee [get]
 func loginGitee(c *gin.Context) {
-	user := service.GetUser(user) // Dependency Injection
+	user := service.GetUser() // Dependency Injection
 	// c.JSON(http.StatusOK, user)
 
 	redirectURL := "https://noah.airdb.io/index.html?token=" + user.Token

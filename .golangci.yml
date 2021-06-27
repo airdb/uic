@@ -30,7 +30,6 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-      #- golint
     - gomnd
     - goprintffuncname
     - gosec
@@ -49,6 +48,6 @@ linters:
     - typecheck
     - unconvert
     - unparam
-    # - unused
+    - unused
     - varcheck
     - whitespace
