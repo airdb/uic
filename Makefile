@@ -24,6 +24,9 @@ swag:
 dev:
 	env=dev go run  $(LDFLAGS) main.go
 
+wire:
+	wire gen internal/app/wire.go
+
 deploy: swag
 	${SLSENV} sls deploy --stage test
 	@echo checkout all scf apps, https://serverless.cloud.tencent.com/

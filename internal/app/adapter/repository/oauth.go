@@ -37,3 +37,8 @@ func (o OauthConfig) GetOauthConfig() domain.OauthConfig {
 		config.State,
 	)
 }
+
+func Hello() OauthConfig {
+	fmt.Println("hello hi")
+	return OauthConfig{ClientID: "11"}
+}
