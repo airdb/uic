@@ -38,7 +38,8 @@ func NewRouter() {
 		handlers.Jsonifier(),
 	)
 
-	version.InitUptime()
+	version.Init()
+
 	project := version.GetBuildInfo().ToProject()
 
 	projectPath := "/" + project
@@ -87,11 +88,6 @@ func index(c *gin.Context) {
 
 func DefaultRoot(c *gin.Context) {
 	handlers.SetResp(c, version.GetBuildInfo())
-	/*
-		c.JSON(http.StatusOK, gin.H{
-			"deploy_info": version.GetBuildInfo(),
-		})
-	*/
 }
 
 func redirect(c *gin.Context) {

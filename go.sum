@@ -10,6 +10,8 @@ github.com/airdb/sailor v0.0.0-20210616072259-4dfcc727f025 h1:oQyctjBnLae2Y0vj+e
 github.com/airdb/sailor v0.0.0-20210616072259-4dfcc727f025/go.mod h1:wq8riUCRh0QW/M35QhlsGBXejkM5NxGG1FvDj4NosCs=
 github.com/airdb/sailor v0.0.0-20210627100104-86c84272b0dd h1:QnpKqmZxq+RzJCPKZHHoCp/zprqIcCTjmXMRpWYes4E=
 github.com/airdb/sailor v0.0.0-20210627100104-86c84272b0dd/go.mod h1:wq8riUCRh0QW/M35QhlsGBXejkM5NxGG1FvDj4NosCs=
+github.com/airdb/sailor v0.0.0-20210627120704-d3c70180112c h1:5mkdhm/iJ8UJ+vsvZ6IubsJ6QLVBen1QuXI25cG4w3w=
+github.com/airdb/sailor v0.0.0-20210627120704-d3c70180112c/go.mod h1:wq8riUCRh0QW/M35QhlsGBXejkM5NxGG1FvDj4NosCs=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
