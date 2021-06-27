@@ -2,15 +2,11 @@ package repository
 
 import (
 	"fmt"
-
-	"github.com/airdb/uic/internal/app/domain"
-	"github.com/airdb/uic/internal/app/domain/factory"
 )
 
-// User is the repository of domain.User
+func GetOauthConfig() OauthConfig {
+	fmt.Println("hello hi")
 
-// Get gets order
-func (o OauthConfig) GetOauthConfig() domain.OauthConfig {
 	db := Connection()
 	var config OauthConfig
 
@@ -19,17 +15,5 @@ func (o OauthConfig) GetOauthConfig() domain.OauthConfig {
 		panic(result.Error)
 	}
 
-	orderFactory := factory.OauthConfig{}
-	fmt.Println("xxx", config)
-	return orderFactory.GenerateOauthConfig(
-		config.ID,
-		config.ClientID,
-		config.RedirectURL,
-		config.State,
-	)
-}
-
-func Hello() OauthConfig {
-	fmt.Println("hello hi")
-	return OauthConfig{ClientID: "11"}
+	return config
 }

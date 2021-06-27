@@ -11,7 +11,13 @@ import (
 // InitializeEvent creates an Event. It will error if the Event is staffed with
 // a grumpy greeter.
 func InitInjection() repository.OauthConfig {
-	wire.Build(repository.Hello)
+	wire.Build(repository.GetOauthConfig)
 
 	return repository.OauthConfig{}
+}
+
+func InitInjectionUser() repository.User {
+	wire.Build(repository.GetUser)
+
+	return repository.User{}
 }

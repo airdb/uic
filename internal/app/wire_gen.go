@@ -10,7 +10,15 @@ import (
 )
 
 // Injectors from wire.go:
+
+// InitializeEvent creates an Event. It will error if the Event is staffed with
+// a grumpy greeter.
 func InitInjection() repository.OauthConfig {
-	oauthConfig := repository.Hello()
+	oauthConfig := repository.GetOauthConfig()
 	return oauthConfig
+}
+
+func InitInjectionUser() repository.User {
+	user := repository.GetUser()
+	return user
 }

@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 
+	"github.com/airdb/uic/internal/app"
 	"github.com/airdb/uic/internal/app/adapter/repository"
 	"github.com/airdb/uic/internal/app/domain/valueobject"
 )
@@ -26,8 +27,7 @@ func (b Bitbank) GetUser() valueobject.User {
 		// Username: "dean",
 	}
 
-	u := repository.User{}
-	c := u.Get()
+	c := app.InitInjectionUser()
 
 	a.ID = c.ID
 	a.Username = c.Username
@@ -41,9 +41,8 @@ func (b Bitbank) GetUser() valueobject.User {
 func GetOauthConfig() valueobject.OauthConfig {
 	a := valueobject.OauthConfig{}
 
-	u := repository.OauthConfig{}
-
-	c := u.GetOauthConfig()
+	c := app.InitInjection()
+	fmt.Println(c)
 
 	a.ID = c.ID
 	a.ClientID = c.ClientID
