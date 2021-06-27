@@ -8,12 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// User is the repository of domain.User
-type User struct {
-	ID       uint64
-	Username string `gorm:"column:nickname"`
-}
-
 // Get gets order
 func (u User) Get() domain.User {
 	db := Connection()

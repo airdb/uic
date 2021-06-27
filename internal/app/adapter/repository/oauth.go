@@ -5,18 +5,9 @@ import (
 
 	"github.com/airdb/uic/internal/app/domain"
 	"github.com/airdb/uic/internal/app/domain/factory"
-	"gorm.io/gorm"
 )
 
 // User is the repository of domain.User
-type OauthConfig struct {
-	gorm.Model
-	Provider    string `gorm:"column:provider"`
-	ClientID    string `gorm:"column:client_id"`
-	CientSecret string `gorm:"column:cient_secret"`
-	RedirectURL string `gorm:"column:redirect_url"`
-	State       string `gorm:"column:state"`
-}
 
 // Get gets order
 func (o OauthConfig) GetOauthConfig() domain.OauthConfig {

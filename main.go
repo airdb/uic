@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-
 	a := app.InitInjection()
 	fmt.Println(a)
 

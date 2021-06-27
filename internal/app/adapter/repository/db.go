@@ -51,3 +51,18 @@ func Connection() (db *gorm.DB) {
 	sqlDB.SetConnMaxLifetime(time.Hour)
 	return db
 }
+
+// User is the repository of domain.User
+type User struct {
+	ID       uint64
+	Username string `gorm:"column:nickname"`
+}
+
+type OauthConfig struct {
+	gorm.Model
+	Provider    string `gorm:"column:provider"`
+	ClientID    string `gorm:"column:client_id"`
+	CientSecret string `gorm:"column:cient_secret"`
+	RedirectURL string `gorm:"column:redirect_url"`
+	State       string `gorm:"column:state"`
+}
