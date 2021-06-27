@@ -1,8 +1,8 @@
 package valueobject
 
 type User struct {
-	ID       uint64 `json:"id:omitempty"`
-	Username string `json:"userName:omitempty"`
+	ID       uint64 `json:"id,omitempty"`
+	Username string `json:"userName,omitempty"`
 	Token    string `json:"token,omitempty"`
 	Redirect string `json:"redirect,omitempty"`
 }

@@ -11,7 +11,8 @@ LDFLAGS += "-X=github.com/airdb/sailor/version.Repo=$(REPO) \
             -X=github.com/airdb/sailor/version.Build=$(BUILD) \
             -X=github.com/airdb/sailor/version.BuildTime=$(shell date +%s)"
 
-SLSENV=SERVERLESS_PLATFORM_VENDOR=tencent GLOBAL_ACCELERATOR_NA=true
+# SLSENV=SERVERLESS_PLATFORM_VENDOR=tencent GLOBAL_ACCELERATOR_NA=true
+SLSENV=SERVERLESS_PLATFORM_VENDOR=tencent
 default: build deploy
 
 build:
